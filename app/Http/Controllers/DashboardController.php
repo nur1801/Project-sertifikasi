@@ -2,29 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DaftarBarang;
+use App\Models\Category;
+use App\Models\Item;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $barang = DaftarBarang::query()
+        $search = $request->string('search')->toString();
+        $categoryId = $request->input('category_id');
+
+        $baseQuery = Item::query();
+
+        $totalItems = (clone $baseQuery)->count();
+        $lowStockItems = (clone $baseQuery)->where('stock', '<', 20)->count();
+        $outOfStockItems = (clone $baseQuery)->where('stock', 0)->count();
+
+        $items = Item::query()
+            ->with('category')
+            ->when($search, fn ($query) => $query->where('name', 'like', '%' . $search . '%'))
+            ->when($categoryId, fn ($query) => $query->where('category_id', $categoryId))
             ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        $categories = Category::query()
+            ->orderBy('name')
             ->get();
 
-        $kategoriList = DaftarBarang::query()
-            ->whereNotNull('kategori')
-            ->where('kategori', '!=', '')
-            ->distinct()
-            ->orderBy('kategori')
-            ->pluck('kategori')
-            ->values();
-
-        $totalBarang = DaftarBarang::count();
-        $totalStok = DaftarBarang::sum('stok');
-        $nilaiPersediaan = DaftarBarang::sum('stok' ) * (float) DaftarBarang::avg('harga');
-
-        return view('dashboard', compact('barang', 'kategoriList', 'totalBarang', 'totalStok', 'nilaiPersediaan'));
+        return view('dashboard', [
+            'items' => $items,
+            'categories' => $categories,
+            'search' => $search,
+            'categoryId' => $categoryId,
+            'total_items' => $totalItems,
+            'low_stock_items' => $lowStockItems,
+            'out_of_stock_items' => $outOfStockItems,
+        ]);
     }
 }

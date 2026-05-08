@@ -14,4 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::resource('items', 'App\\Http\\Controllers\\ItemController');
+Route::resource('categories', 'App\\Http\\Controllers\\CategoryController');
+Route::view('/help', 'help')->name('help');
