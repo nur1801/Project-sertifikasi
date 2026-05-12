@@ -17,11 +17,19 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="hero-stat p-3 mb-3">
-                <div class="text-white-50 small">Total Barang</div>
-                <div class="stat-number">{{ $total_items }}</div>
-            </div>
             <div class="row g-3">
+                <div class="col-6">
+                    <div class="hero-stat p-3 h-100">
+                        <div class="text-white-50 small">Total Barang</div>
+                        <div class="fs-3 fw-bold text-light">{{ $total_items }}</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="hero-stat p-3 h-100">
+                        <div class="text-white-50 small">Total Kategori</div>
+                        <div class="fs-3 fw-bold text-info">{{ $total_categories }}</div>
+                    </div>
+                </div>
                 <div class="col-6">
                     <div class="hero-stat p-3 h-100">
                         <div class="text-white-50 small">Stok Menipis</div>
@@ -79,6 +87,7 @@
             <table class="table align-middle mb-0">
                 <thead>
                 <tr>
+                    <th style="width: 80px;">Foto</th>
                     <th>Nama</th>
                     <th>Kategori</th>
                     <th>Stok</th>
@@ -91,6 +100,18 @@
                 @forelse ($items as $item)
                     <tr>
                         <td>
+                            <div class="border rounded-3 bg-light d-flex align-items-center justify-content-center overflow-hidden" style="width: 60px; height: 60px;">
+                                @if ($item->photo)
+                                    <img src="{{ asset('storage/' . $item->photo) }}" alt="{{ $item->name }}" class="w-100 h-100 object-fit-cover">
+                                @else
+                                    <svg class="text-secondary" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l2.828 2.828a2 2 0 0 1 .586 1.414V9.5a.5.5 0 0 1-1 0V6.414a1 1 0 0 0-.293-.707L5.586 3.586A1 1 0 0 0 5.172 3H2.5a1 1 0 0 0-1 1v.5a.5.5 0 0 1-.5.5h-.5a.5.5 0 0 1-.5-.5v-.5z"/>
+                                        <path d="M16 12.5V4.032a2 2 0 0 0-.656-1.414L14.828.586A2 2 0 0 0 13.414 0H2.5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11.5a2 2 0 0 0 2-2zm-1-12.5h-2v6h2V.5zM2 3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6V2H2zm7 0v10h2a1 1 0 0 0 1-1V3h-3z"/>
+                                    </svg>
+                                @endif
+                            </div>
+                        </td>
+                        <td>
                             <div class="fw-semibold">{{ $item->name }}</div>
                             <div class="text-secondary small">{{ $item->location ?? '-' }}</div>
                         </td>
@@ -102,13 +123,9 @@
                             @endif
                         </td>
                         <td>
-                            @if ($item->stock == 0)
-                                <span class="badge rounded-pill badge-soft-danger">Habis</span>
-                            @elseif ($item->stock < 20)
-                                <span class="badge rounded-pill badge-soft-warning">Menipis</span>
-                            @else
-                                <span class="badge rounded-pill text-bg-success">{{ $item->stock }}</span>
-                            @endif
+                            <span class="fw-semibold @if ($item->stock == 0) text-danger @elseif ($item->stock < 20) text-warning @else text-success @endif">
+                                {{ $item->stock }}
+                            </span>
                         </td>
                         <td>{{ $item->unit }}</td>
                         <td>Rp {{ number_format($item->selling_price, 0, ',', '.') }}</td>
@@ -122,7 +139,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center py-5 text-secondary">Belum ada data barang.</td>
+                        <td colspan="7" class="text-center py-5 text-secondary">Belum ada data barang.</td>
                     </tr>
                 @endforelse
                 </tbody>

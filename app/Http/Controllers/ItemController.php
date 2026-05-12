@@ -50,7 +50,7 @@ class ItemController extends Controller
 
         Item::create($validated);
 
-        return redirect()->route('items.index')->with('success', 'Barang berhasil ditambahkan.');
+        return redirect()->route('dashboard')->with('success', 'Barang berhasil ditambahkan.');
     }
 
     public function show(Item $item): View
@@ -93,7 +93,7 @@ class ItemController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('items.index')->with('success', 'Barang berhasil diperbarui.');
+        return redirect()->route('dashboard')->with('success', 'Barang berhasil diperbarui.');
     }
 
     public function destroy(Item $item): RedirectResponse
@@ -104,6 +104,6 @@ class ItemController extends Controller
 
         $item->delete();
 
-        return redirect()->route('items.index')->with('success', 'Barang berhasil dihapus.');
+        return redirect()->route('dashboard')->with('success', 'Barang berhasil dihapus.');
     }
 }

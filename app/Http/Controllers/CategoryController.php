@@ -33,7 +33,7 @@ class CategoryController extends Controller
 
         Category::create($validated);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect()->route('dashboard')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function show(Category $category): View
@@ -57,13 +57,13 @@ class CategoryController extends Controller
 
         $category->update($validated);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route('dashboard')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus.');
+        return redirect()->route('dashboard')->with('success', 'Kategori berhasil dihapus.');
     }
 }

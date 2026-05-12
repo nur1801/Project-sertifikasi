@@ -17,13 +17,17 @@ class DashboardController extends Controller
         $baseQuery = Item::query();
 
         $totalItems = (clone $baseQuery)->count();
-        $lowStockItems = (clone $baseQuery)->where('stock', '<', 20)->count();
+        $lowStockItems = (clone $baseQuery)
+            ->where('stock', '<', 20)
+            ->where('stock', '>', 0)
+            ->count();
         $outOfStockItems = (clone $baseQuery)->where('stock', 0)->count();
+        $totalCategories = Category::query()->count();
 
         $items = Item::query()
             ->with('category')
-            ->when($search, fn ($query) => $query->where('name', 'like', '%' . $search . '%'))
-            ->when($categoryId, fn ($query) => $query->where('category_id', $categoryId))
+            ->when($search, fn($query) => $query->where('name', 'like', '%' . $search . '%'))
+            ->when($categoryId, fn($query) => $query->where('category_id', $categoryId))
             ->latest()
             ->paginate(10)
             ->appends($request->query());
@@ -40,6 +44,7 @@ class DashboardController extends Controller
             'total_items' => $totalItems,
             'low_stock_items' => $lowStockItems,
             'out_of_stock_items' => $outOfStockItems,
+            'total_categories' => $totalCategories,
         ]);
     }
 }
