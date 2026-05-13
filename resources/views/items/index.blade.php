@@ -6,7 +6,7 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <h1 class="page-title h3 mb-1">Data Barang</h1>
-        <p class="text-secondary mb-0">Kelola seluruh item makanan beku yang tersimpan di sistem.</p>
+        <p class="text-secondary mb-0">Menampilkan daftar barang makanan beku yang tersimpan di sistem.</p>
     </div>
     <a href="{{ route('items.create') }}" class="btn btn-primary">+ Tambah Barang</a>
 </div>
@@ -17,6 +17,7 @@
             <table class="table align-middle">
                 <thead>
                 <tr>
+                    <th>Foto</th>
                     <th>Nama</th>
                     <th>Kategori</th>
                     <th>Stok</th>
@@ -27,10 +28,28 @@
                 </thead>
                 <tbody>
                 @forelse ($items as $item)
+                    @php
+                        $stockClass = 'text-success';
+                        if ($item->stock <= 0) {
+                            $stockClass = 'text-danger';
+                        } elseif ($item->stock <= $item->min_stock) {
+                            $stockClass = 'text-warning';
+                        }
+                    @endphp
                     <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->category?->name ?? '-' }}</td>
-                        <td>{{ $item->stock }}</td>
+                        <td style="width: 64px;">
+                            @if ($item->photo)
+                                <img src="{{ asset('storage/' . $item->photo) }}" alt="{{ $item->name }}" class="rounded-3 border object-fit-cover" width="48" height="48">
+                            @else
+                                <div class="rounded-3 border bg-light d-flex align-items-center justify-content-center text-secondary small" style="width: 48px; height: 48px;">-</div>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="fw-semibold">{{ $item->name }}</div>
+                            <div class="text-secondary small">{{ $item->location ?? '-' }}</div>
+                        </td>
+                        <td><span class="badge rounded-pill text-secondary bg-light border border-secondary-subtle">{{ $item->category?->name ?? 'Tanpa kategori' }}</span></td>
+                        <td class="fw-semibold {{ $stockClass }}">{{ $item->stock }}</td>
                         <td>{{ $item->unit }}</td>
                         <td>Rp {{ number_format($item->selling_price, 0, ',', '.') }}</td>
                         <td class="text-end">
@@ -43,7 +62,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center py-5 text-secondary">Belum ada data barang.</td>
+                        <td colspan="7" class="text-center py-5 text-secondary">Belum ada data barang.</td>
                     </tr>
                 @endforelse
                 </tbody>

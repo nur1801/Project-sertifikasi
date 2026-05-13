@@ -10,17 +10,44 @@
     </div>
 </div>
 
+<h2 class="h5 fw-bold mb-3">Panduan Penggunaan Sistem</h2>
+
 <div class="card card-soft mb-4">
     <div class="card-body p-4">
-        <h2 class="h5 fw-bold mb-3">Panduan Singkat</h2>
+        <h3 class="h6 fw-bold mb-3">Cara menambah barang baru</h3>
         <ol class="mb-0 ps-3">
-            <li class="mb-2">Gunakan menu Dashboard untuk melihat total barang, stok menipis, stok habis, dan daftar item.</li>
-            <li class="mb-2">Menu Kategori dipakai untuk menambah, mengubah, dan menghapus kelompok barang.</li>
-            <li class="mb-2">Menu barang menyediakan input foto, stok, harga, lokasi, dan deskripsi produk.</li>
-            <li class="mb-2">Gunakan tombol Detail untuk melihat informasi lengkap suatu barang.</li>
-            <li>Hapus data hanya jika sudah dipastikan tidak diperlukan lagi. Kategori yang dihapus tidak akan menghapus item terkait.</li>
+            <li class="mb-2">Buka halaman Dashboard. Klik tombol <span class="badge bg-primary">+ Tambah Barang</span></li>
+            <li class="mb-2">Unggah foto barang, isi formulir nama, kategori, satuan jumlah stok, harga, dan lainnya.</li>
+            <li class="mb-0">Klik Simpan Barang. Barang akan muncul di daftar dashboard.</li>
         </ol>
     </div>
+</div>
+
+<div class="card card-soft mb-4">
+    <div class="card-body p-4">
+        <h3 class="h6 fw-bold mb-3">Cara update stok barang masuk</h3>
+        <ol class="mb-0 ps-3">
+            <li class="mb-2">Temukan barang di dashboard menggunakan kolom pencarian atau filter kategori.</li>
+            <li class="mb-2">Klik tombol <span class="badge bg-warning">Edit</span> pada baris barang tersebut.</li>
+            <li class="mb-0">Ubah nilai Jumlah stok sesuai kondisi saat ini. Klik Simpan Barang.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="card card-soft mb-4">
+    <div class="card-body p-4">
+        <h3 class="h6 fw-bold mb-3">Cara mengelola kategori</h3>
+        <ol class="mb-0 ps-3">
+            <li class="mb-2">Buka halaman <span class="badge bg-info">Kategori</span> dari navigasi atas.</li>
+            <li class="mb-2">Tambah, edit, atau hapus kategori sesuai kebutuhan loka.</li>
+            <li class="mb-0">Menghapus kategori tidak akan menghapus barang — barang akan menjadi tidak berkategori.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" viewBox="0 0 16 16" fill="currentColor"></svg>
+    <strong>Catatan:</strong> Satuan barang diberi besaran kebutuhan — misalnya pcs, pack, box, kg, liter, dan lain-lain.
 </div>
 
 <div class="card card-soft">

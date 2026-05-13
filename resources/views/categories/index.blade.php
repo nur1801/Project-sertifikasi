@@ -20,6 +20,7 @@
                     <th>Nama</th>
                     <th>Deskripsi</th>
                     <th>Jumlah Barang</th>
+                    <th>Dibuat</th>
                     <th class="text-end">Aksi</th>
                 </tr>
                 </thead>
@@ -29,6 +30,7 @@
                         <td class="fw-semibold">{{ $category->name }}</td>
                         <td>{{ $category->description ?? '-' }}</td>
                         <td><span class="badge rounded-pill badge-soft-primary">{{ $category->items_count }} item</span></td>
+                        <td>{{ $category->created_at->format('d M Y') }}</td>
                         <td class="text-end">
                             <div class="d-inline-flex gap-2">
                                 <a href="{{ route('categories.show', $category) }}" class="btn btn-sm btn-outline-primary">Detail</a>

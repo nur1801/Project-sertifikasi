@@ -29,16 +29,16 @@
                 </div>
             </div>
             <div class="col-md-8 col-lg-9">
+                
+                <h2 class="h3 fw-bold mb-3">{{ $item->name }}</h2>
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                    <span class="badge rounded-pill badge-soft-primary">{{ $item->category?->name ?? 'Tanpa kategori' }}</span>
-                    <span class="badge rounded-pill text-bg-light text-dark">{{ $item->unit }}</span>
+                    <span class="badge rounded-pill badge-soft-primary px-3 py-2">{{ $item->category?->name ?? 'Tanpa kategori' }}</span>
                 </div>
-                <h2 class="h3 fw-bold mb-2">{{ $item->name }}</h2>
                 <p class="text-secondary mb-4">{{ $item->description ?? 'Tidak ada deskripsi.' }}</p>
 
                 <div class="row g-3">
-                    <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Stok</div><div class="fw-bold fs-5">{{ $item->stock }}</div></div></div>
-                    <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Stok Minimum</div><div class="fw-bold fs-5">{{ $item->min_stock }}</div></div></div>
+                    <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Stok</div><div class="fw-bold fs-5">{{ $item->stock }} {{ $item->unit }}</div></div></div>
+                    <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Stok Minimum</div><div class="fw-bold fs-5">{{ $item->min_stock }} {{ $item->unit }}</div></div></div>
                     <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Harga Jual</div><div class="fw-bold fs-5">Rp {{ number_format($item->selling_price, 0, ',', '.') }}</div></div></div>
                     <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Harga Beli</div><div class="fw-bold fs-5">Rp {{ number_format($item->purchase_price, 0, ',', '.') }}</div></div></div>
                     <div class="col-sm-6 col-xl-4"><div class="p-3 bg-light rounded-4"><div class="text-secondary small">Berat / Ukuran</div><div class="fw-bold fs-5">{{ $item->weight ?? '-' }}</div></div></div>
